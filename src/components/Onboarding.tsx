@@ -9,10 +9,7 @@ import {
   Animated,
 } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import AnimatedFlatList, {
-  FlatList,
-  AnimatedFlatListType,
-} from 'react-native-reanimated';
+import FlatList from 'react-native-reanimated';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -22,8 +19,8 @@ import { mergeTheme, getPreset } from '../themes';
 import { SlideRenderer } from '../slides';
 import { Pagination, NavigationButtons } from './index';
 
-const AnimatedFlatListImplemented =
-  (AnimatedFlatList as any) as AnimatedFlatListType<any>;
+// Type assertion for AnimatedFlatList from react-native-reanimated
+const AnimatedFlatListImplemented = FlatList as any;
 
 export const Onboarding: React.FC<OnboardingProps> = ({
   visible,
@@ -47,7 +44,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({
   const [formData, setFormData] = useState<Record<string, any>>({});
 
   //Refs
-  const flatListRef = React.useRef<FlatList>(null);
+  const flatListRef = React.useRef<any>(null);
 
   // Merge theme with preset
   const preset = useMemo(() => {
@@ -172,8 +169,8 @@ export const Onboarding: React.FC<OnboardingProps> = ({
     [currentIndex, onSlideChange]
   );
 
-  const handleFormDataChange = useCallback((key: string, value: any) => {
-    setFormData(prev => ({ ...prev, [key]: value }));
+  const handleFormDataChange = useCallback((data: Record<string, any>) => {
+    setFormData(prev => ({ ...prev, ...data }));
   }, []);
 
   // Renderers
@@ -210,7 +207,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({
       {/* Background Gradient if applicable */}
       {currentSlide?.gradientColors && currentSlide.gradientColors.length > 0 && (
         <LinearGradient
-          colors={currentSlide.gradientColors}
+          colors={currentSlide.gradientColors as any}
           style={StyleSheet.absoluteFillObject}
         />
       )}
@@ -239,7 +236,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({
         scrollEnabled={swipeEnabled}
         bounces={false}
         initialScrollIndex={initialSlide}
-        onScrollToIndexFailed={(info) => {
+        onScrollToIndexFailed={(info: any) => {
           // Retry if scroll to index fails
           setTimeout(() => {
             flatListRef.current?.scrollToIndex({

@@ -166,7 +166,7 @@ const FloatingDotsPagination: React.FC<PaginationProps> = ({ currentIndex, total
 
 // MAIN PAGINATION COMPONENT
 export const Pagination: React.FC<PaginationProps> = ({ currentIndex, totalSlides, theme, config, style }) => {
-  const { style: navStyle, position } = config;
+  const { style: navStyle, position } = config || { style: 'dots' as const, position: 'bottom' as const };
 
   const containerStyle: ViewStyle = useMemo(() => {
     const base: ViewStyle = {};

@@ -44,7 +44,7 @@ export interface FormFieldConfig {
   key: string;
   label: string;
   placeholder: string;
-  type: 'text' | 'number' | 'email' | 'select' | 'multiselect';
+  type: 'text' | 'number' | 'email' | 'password' | 'select' | 'multiselect';
   required?: boolean;
   options?: Array<{ value: string; label: string; icon?: string }>;
   validation?: (value: any) => boolean | string;
@@ -159,7 +159,7 @@ export type AnimationType = 'slide' | 'fade' | 'scale' | 'parallax' | 'cube' | '
 export interface AnimationConfig {
   type: AnimationType;
   duration?: number;
-  easing?: Animated.EasingFunction;
+  easing?: (t: number) => number;
   parallaxFactor?: number;
 }
 
@@ -213,7 +213,7 @@ export interface PaginationProps {
   currentIndex: number;
   totalSlides: number;
   theme: OnboardingTheme;
-  config: NavigationConfig;
+  config?: NavigationConfig;
   style?: ViewStyle;
 }
 

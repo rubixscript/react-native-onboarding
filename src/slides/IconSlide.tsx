@@ -131,7 +131,7 @@ export const IconSlide: React.FC<IconSlideProps> = ({ data, theme, darkMode }) =
 
   if (gradientColors && gradientColors.length > 0) {
     return (
-      <LinearGradient colors={gradientColors} style={StyleSheet.absoluteFillObject}>
+      <LinearGradient colors={gradientColors as any} style={StyleSheet.absoluteFillObject}>
         <View style={containerStyle}>{content}</View>
       </LinearGradient>
     );

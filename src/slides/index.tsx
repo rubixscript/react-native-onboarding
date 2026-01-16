@@ -35,10 +35,3 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ data, theme, darkM
   }
 };
 
-export default {
-  ImageSlide,
-  IconSlide,
-  FormSlide,
-  VideoSlide,
-  SlideRenderer,
-};
